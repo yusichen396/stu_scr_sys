@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.studentadmin.mapper.ActivityLogMapper">
+    <select id="getRecentLogs" resultType="com.example.studentadmin.entity.ActivityLog">
+        SELECT * FROM activity_log
+        ORDER BY created_at DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <insert id="insertLog" parameterType="com.example.studentadmin.entity.ActivityLog">
+        INSERT INTO activity_log(username, action, detail)
+        VALUES(#{username}, #{action}, #{detail})
+    </insert>
+</mapper> 

@@ -1,0 +1,1 @@
+ALTER TABLE grade ADD COLUMN exam_time DATE COMMENT '考试时间'; 

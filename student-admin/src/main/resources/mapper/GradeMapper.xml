@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.studentadmin.mapper.GradeMapper">
+    
+    <select id="getGradePage" resultType="com.example.studentadmin.entity.Grade">
+        SELECT 
+            g.id,
+            g.student_id as studentId,
+            s.name as studentName,
+            s.student_id as studentNo,
+            g.course_id as courseId,
+            c.name as courseName,
+            g.score,
+            g.semester,
+            g.exam_time as examTime,
+            g.created_time as createdTime,
+            g.updated_time as updatedTime,
+            g.deleted
+        FROM grade g
+        LEFT JOIN student s ON g.student_id = s.student_id
+        LEFT JOIN course c ON g.course_id = c.course_id
+        WHERE g.deleted = 0
+        <if test="studentId != null">
+            AND g.student_id = #{studentId}
+        </if>
+        <if test="courseId != null and courseId != ''">
+            AND g.course_id = #{courseId}
+        </if>
+        <if test="semester != null and semester != ''">
+            AND g.semester = #{semester}
+        </if>
+        ORDER BY g.created_time DESC
+    </select>
+    
+    <select id="getByStudentIdAndCourseId" resultType="com.example.studentadmin.entity.Grade">
+        SELECT 
+            g.id,
+            g.student_id as studentId,
+            s.name as studentName,
+            s.student_id as studentNo,
+            g.course_id as courseId,
+            c.name as courseName,
+            g.score,
+            g.semester,
+            g.exam_time as examTime,
+            g.created_time as createdTime,
+            g.updated_time as updatedTime,
+            g.deleted
+        FROM grade g
+        LEFT JOIN student s ON g.student_id = s.student_id
+        LEFT JOIN course c ON g.course_id = c.course_id
+        WHERE g.deleted = 0
+        AND g.student_id = #{studentId}
+        AND g.course_id = #{courseId}
+        AND g.semester = #{semester}
+    </select>
+</mapper> 
